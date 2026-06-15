@@ -1,0 +1,58 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+env/
+.venv/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment files (DO NOT commit secrets)
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# Build output
+locallink/frontend/build/
+locallink/frontend/dist/
+locallink/{frontend/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Flask instance / uploads
+locallink/backend/instance/
+locallink/backend/static/uploads/
+
+# Python cache in backend
+locallink/backend/__pycache__/
+locallink/backend/config/__pycache__/
+locallink/backend/routes/__pycache__/

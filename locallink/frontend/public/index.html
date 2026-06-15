@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="description" content="LocalLink – Your local marketplace connecting farmers, vendors, and customers. Fresh produce, groceries, and services delivered to your doorstep." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Content Security Policy: allows API calls (incl. 10.0.2.2 for Android emulator), fonts, and images -->
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
+               connect-src 'self' http://10.236.27.214:5000 http://10.0.2.2:5000 http://localhost:5000 https://*.unsplash.com https://*.googleapis.com https://*.gstatic.com;
+               font-src 'self' data: https://fonts.gstatic.com;
+               img-src 'self' data: blob: https: http:;
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
+    <title>LocalLink – Shop Local, Support Local</title>
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- DNS prefetch for faster font loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts with font-display=swap so app renders immediately with fallback fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Inline critical font fallback so app always renders even if Google Fonts fails -->
+    <style>
+      body {
+        font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

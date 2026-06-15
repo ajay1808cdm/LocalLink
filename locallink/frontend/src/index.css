@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════ */
+:root {
+  --primary: #2d7a3a;
+  --primary-light: #3da84e;
+  --primary-dark: #1e5228;
+  --secondary: #f97316;
+  --secondary-light: #fb923c;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 16px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ═══════════════════════════════════════════════
+   BASE RESET & GLOBALS
+   ═══════════════════════════════════════════════ */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  /* Comprehensive font stack: Google Fonts with safe system fallbacks for Android WebView */
+  font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   COMPONENT LAYER
+   ═══════════════════════════════════════════════ */
+@layer components {
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-light text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-light text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply text-gray-600 hover:text-primary hover:bg-primary/5 font-medium py-2 px-4 rounded-xl transition-all duration-200;
+  }
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-gray-100/80 hover:shadow-card transition-shadow duration-200;
+  }
+
+  .card-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    @apply rounded-2xl border border-white/30 shadow-glass;
+  }
+
+  /* ── Input ── */
+  .input-field {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200 bg-gray-50/80 focus:bg-white;
+  }
+
+  /* ── Badges ── */
+  .badge-primary {
+    @apply bg-primary/10 text-primary text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-secondary {
+    @apply bg-secondary/10 text-secondary text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-green {
+    @apply bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-yellow {
+    @apply bg-amber-100 text-amber-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-blue {
+    @apply bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-red {
+    @apply bg-red-100 text-red-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-orange {
+    @apply bg-orange-100 text-orange-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .badge-purple {
+    @apply bg-purple-100 text-purple-700 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    @apply font-display text-2xl font-bold text-gray-800 mb-1;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(45, 122, 58, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 122, 58, 0.4);
+}
+
+/* Hide scrollbar for horizontal scrollers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE ANIMATIONS
+   ═══════════════════════════════════════════════ */
+.page-enter {
+  animation: pageSlideIn 0.35s ease-out forwards;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  opacity: 0;
+  animation: slideUp 0.4s ease-out forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════
+   SAFE AREA UTILITIES (for mobile notch/nav)
+   ═══════════════════════════════════════════════ */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ═══════════════════════════════════════════════
+   GRADIENT UTILITIES
+   ═══════════════════════════════════════════════ */
+.gradient-primary {
+  background: linear-gradient(135deg, #1e5228 0%, #2d7a3a 50%, #3da84e 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #ea6c0a 0%, #f97316 50%, #fb923c 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #fef3ec 0%, #fef9f5 50%, #fff7ed 100%);
+}
+
+/* ═══════════════════════════════════════════════
+   SKELETON LOADER
+   ═══════════════════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease infinite;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE SAFE GUARDS
+   ═══════════════════════════════════════════════ */
+@media (max-width: 380px) {
+  html { font-size: 14px; }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+}
