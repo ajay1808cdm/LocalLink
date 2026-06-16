@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: locallink/frontend
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: Install dependencies
+      run: npm install
+    - name: Build React App
+      run: npm run build
+    # If tests are added in the future, uncomment the next line
+    # - run: npm test
+
+  build-backend-node:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: locallink/backend-node
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: Install dependencies
+      run: npm install
+    - name: Check syntax
+      run: node -c server.js
+
+  build-backend-python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: locallink/backend
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Check syntax
+      run: python -m py_compile app.py
