@@ -79,8 +79,14 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - name: Install Selenium
-      run: pip install selenium
+    - name: Install Selenium and OpenPyXL
+      run: pip install selenium openpyxl
     - name: Run Selenium E2E Tests
       working-directory: locallink
       run: python e2e_tests/test_website.py
+    - name: Upload Test Results Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: e2e-test-results
+        path: locallink/results/test_results.xlsx
