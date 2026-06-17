@@ -10,7 +10,7 @@
     "test:all": "npm run test:web && npm run test:mobile"
   },
   "dependencies": {
-    "chromedriver": "^131.0.1",
+    "chromedriver": "^149.0.3",
     "dotenv": "^16.4.5",
     "exceljs": "^4.4.0",
     "selenium-webdriver": "^4.27.0",
