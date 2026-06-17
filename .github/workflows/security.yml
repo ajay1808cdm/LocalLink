@@ -11,25 +11,32 @@ on:
 jobs:
   npm-audit:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./locallink/frontend
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
-    - name: Install Dependencies
-      run: npm ci || npm install
-    - name: Run npm audit
-      run: npm audit --audit-level=high || true
+    - name: Run npm audit (Frontend)
+      working-directory: ./locallink/frontend
+      run: |
+        npm ci || npm install
+        npm audit --audit-level=high --json > npm-audit-frontend.json || true
+    - name: Run npm audit (Backend)
+      working-directory: ./locallink/backend-node
+      run: |
+        npm ci || npm install
+        npm audit --audit-level=high --json > npm-audit-backend.json || true
+    - name: Upload npm audit reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-audit-reports
+        path: |
+          ./locallink/frontend/npm-audit-frontend.json
+          ./locallink/backend-node/npm-audit-backend.json
 
   pip-audit:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./locallink/backend
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -39,13 +46,72 @@ jobs:
     - name: Install pip-audit
       run: pip install pip-audit
     - name: Run pip-audit
-      run: pip-audit -r requirements.txt || true
+      working-directory: ./locallink/backend
+      run: pip-audit -r requirements.txt -f json -o pip-audit-report.json || true
+    - name: Upload pip-audit report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pip-audit-report
+        path: ./locallink/backend/pip-audit-report.json
 
   dependency-review:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - name: 'Checkout Repository'
+      - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: 'Dependency Review'
+      - name: Dependency Review
         uses: actions/dependency-review-action@v4
+
+  secret-scanning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --only-verified
+
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Bandit
+        run: pip install bandit
+      - name: Run Bandit
+        working-directory: ./locallink/backend
+        run: bandit -r . -f json -o bandit-report.json || true
+      - name: Upload Bandit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-report
+          path: ./locallink/backend/bandit-report.json
+
+  owasp-dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'LocalLink'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-report
+          path: reports
