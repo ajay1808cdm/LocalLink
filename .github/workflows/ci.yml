@@ -90,3 +90,18 @@ jobs:
       with:
         name: e2e-test-results
         path: locallink/results/test_results.xlsx
+
+  e2e-appium-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: Install dependencies
+      working-directory: locallink/automation-framework
+      run: npm install
+    - name: Run Appium Tests
+      working-directory: locallink/automation-framework
+      run: npm run test:mobile

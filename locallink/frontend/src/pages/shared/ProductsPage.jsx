@@ -26,8 +26,13 @@ export default function ProductsPage() {
     try {
       const params = { page, per_page: 12, ...Object.fromEntries(Object.entries(filters).filter(([,v])=>v)) };
       const res = await productsAPI.list(params);
-      setProducts(res.data.products);
-      setTotal(res.data.total);
+      if (Array.isArray(res.data)) {
+        setProducts(res.data);
+        setTotal(res.data.length);
+      } else {
+        setProducts(res.data.products || []);
+        setTotal(res.data.total || 0);
+      }
     } finally { setLoading(false); }
   }, [filters, page]);
 

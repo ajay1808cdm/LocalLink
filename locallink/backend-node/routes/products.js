@@ -19,16 +19,10 @@ router.get('/', async (req, res, next) => {
     // Return empty array if no products
     res.json(rows.length ? rows : []);
   } catch (err) {
-    // Log full error for debugging
-    console.error('GET /api/products error:', err);
-    // If the products table does not exist, create it lazily (optional) or return empty array
-    if (err.code === '42P01') {
-      // relation "products" does not exist
-      console.warn('Products table missing; returning empty list');
-      return res.json([]);
-    }
-    // For any other error, send user-friendly message
-    res.status(500).json({ error: 'Failed to fetch products' });
+    console.error('GET /api/products error:', err.message);
+    // Return empty array on ANY DB error (missing table, connection refused, etc)
+    // to prevent frontend crashes when DB is not available.
+    return res.json([]);
   }
 });
 

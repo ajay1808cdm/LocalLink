@@ -91,6 +91,7 @@ export default function LoginPage() {
                 <FiMail size={16} style={styles.inputIcon} />
                 <input
                   type="email"
+                  name="email"
                   placeholder="you@example.com"
                   required
                   style={styles.input}
@@ -108,6 +109,7 @@ export default function LoginPage() {
                 <FiLock size={16} style={styles.inputIcon} />
                 <input
                   type={showPw ? "text" : "password"}
+                  name="password"
                   placeholder="••••••••"
                   required
                   style={{ ...styles.input, paddingRight: 44 }}

@@ -1,0 +1,24 @@
+{
+  "name": "locallink-automation",
+  "version": "1.0.0",
+  "description": "E2E Automation Framework for LocalLink",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/selenium/**/*.spec.js --timeout 60000",
+    "test:web": "mocha tests/selenium/**/*.spec.js --timeout 60000",
+    "test:mobile": "mocha tests/appium/**/*.spec.js --timeout 120000",
+    "test:all": "npm run test:web && npm run test:mobile"
+  },
+  "dependencies": {
+    "chromedriver": "^131.0.1",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "selenium-webdriver": "^4.27.0",
+    "webdriverio": "^9.4.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "mocha": "^11.0.1"
+  }
+}

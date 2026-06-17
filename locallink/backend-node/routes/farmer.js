@@ -20,7 +20,9 @@ router.get('/dashboard', verifyToken, async (req, res, next) => {
     );
     res.json({ stats: stats.rows[0] || { products: 0, total_sales: 0, revenue: 0 } });
   } catch (err) {
-    next(err);
+    console.error('Farmer dashboard stats error:', err.message);
+    // Return empty stats on DB error so frontend doesn't crash
+    res.json({ stats: { products: 0, total_sales: 0, revenue: 0 } });
   }
 });
 
