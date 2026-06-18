@@ -28,7 +28,7 @@ jobs:
         npm ci || npm install
         npm audit --audit-level=high --json > npm-audit-backend.json || true
     - name: Upload npm audit reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: npm-audit-reports
         path: |
@@ -49,7 +49,7 @@ jobs:
       working-directory: ./locallink/backend
       run: pip-audit -r requirements.txt -f json -o pip-audit-report.json || true
     - name: Upload pip-audit report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: pip-audit-report
         path: ./locallink/backend/pip-audit-report.json
@@ -91,7 +91,7 @@ jobs:
         working-directory: ./locallink/backend
         run: bandit -r . -f json -o bandit-report.json || true
       - name: Upload Bandit report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bandit-report
           path: ./locallink/backend/bandit-report.json
@@ -111,7 +111,7 @@ jobs:
             --failOnCVSS 7
             --enableRetired
       - name: Upload OWASP Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: owasp-dependency-check-report
           path: reports
