@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "chromedriver": "^131.0.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.4.2",
     "exceljs": "^4.4.0",
     "selenium-webdriver": "^4.27.0",
     "webdriverio": "^9.4.1",
