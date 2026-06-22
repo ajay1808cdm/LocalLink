@@ -9,6 +9,8 @@
     "test:mobile": "mocha tests/appium/**/*.spec.js --timeout 120000",
     "generate:appium-tests": "node scripts/generate_appium_tests.js",
     "generate:selenium-tests": "node scripts/generate_selenium_tests.js",
+    "generate:load-tests": "node scripts/generate_load_tests.js",
+    "test:load": "mocha tests/load/**/*.spec.js --timeout 60000",
     "test:all": "npm run test:web && npm run test:mobile"
   },
   "dependencies": {
