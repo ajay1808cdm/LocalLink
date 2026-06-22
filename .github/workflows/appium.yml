@@ -1,0 +1,39 @@
+name: Appium Tests CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: locallink/automation-framework/package-lock.json
+
+    - name: Install dependencies
+      working-directory: locallink/automation-framework
+      run: npm install
+
+    - name: Install Appium
+      run: npm install -g appium
+
+    - name: Run Appium Server in background
+      run: appium &
+      
+    - name: Wait for Appium Server to start
+      run: sleep 10
+
+    - name: Run Appium Tests
+      working-directory: locallink/automation-framework
+      run: npm run test:mobile

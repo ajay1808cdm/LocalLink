@@ -1,0 +1,42 @@
+name: Selenium Tests CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: locallink/automation-framework/package-lock.json
+
+    - name: Install dependencies
+      working-directory: locallink/automation-framework
+      run: npm install
+
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@latest
+      
+    - name: Setup ChromeDriver
+      uses: nanasess/setup-chromedriver@master
+      
+    - name: Start ChromeDriver in background
+      run: |
+        export DISPLAY=:99
+        chromedriver --url-base=/wd/hub &
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+
+    - name: Run Selenium Tests
+      working-directory: locallink/automation-framework
+      run: npm run test:web
