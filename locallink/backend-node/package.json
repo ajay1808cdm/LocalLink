@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "artillery": "^2.0.33",
-    "eslint": "^8.57.0",
+    "eslint": "^10.7.0",
     "eslint-plugin-security": "^2.1.1",
     "nodemon": "^3.1.4"
   }
